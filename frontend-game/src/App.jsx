@@ -12,6 +12,7 @@ function App() {
 
   const [questions, setQuestions] = useState()
   const [username, setUsername] = useState(null)
+  const [state, setUserState] = useState(null)
   const [questionNumber, setQuestionNumber] = useState(1)
   const [stop, setStop] = useState(false)
   const [earned, setEarned] = useState("0")
@@ -40,10 +41,10 @@ function App() {
   }
 
 useEffect(() => {
-  if(username){
+  if(username && state){
     startTimer()
   }
-},[username])
+},[username, state])
 
 useEffect(() => {
   if (stop){
@@ -145,10 +146,11 @@ useEffect(() => {
     await api.post('/participant',
       { 
         name: username, 
+        estado: state,
         score: parseInt(earned), 
         seconds: parseInt(seconds)
       })
-  },[earned, seconds, username])
+  },[earned, seconds, username, state])
 
 
   return (
@@ -158,7 +160,7 @@ useEffect(() => {
           <div className="main">
             {stop ? 
               (
-              <h1 className="endText">{username} você fez: {earned} pontos em  {seconds} segundos</h1> 
+              <h1 className="endText">{username} do Estado do {state} você fez: {earned} pontos em  {seconds} segundos</h1> 
             ) : (
             <>
               <div className="top">
@@ -186,10 +188,9 @@ useEffect(() => {
                 </li>
               ))}
             </ul>
-          </div>
+          </div>        
         </>
-      ) : <Start setUsername={setUsername} />}
-      
+      ) : <Start setUsername={setUsername} setUserState={setUserState} /> }
     </div>
   );
 }

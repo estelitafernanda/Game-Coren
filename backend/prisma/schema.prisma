@@ -31,6 +31,7 @@ model Answers {
 model Participants {
   id              Int      @id @default(autoincrement())
   name            String
+  estado          String
   phone           String?
   score           Int?
   seconds         Int?

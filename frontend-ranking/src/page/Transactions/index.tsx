@@ -5,6 +5,7 @@ import { TransactionsContainer, TransactionsTable } from "./styles";
 interface Transactions {
   id: number
   name: string
+  estado: string
   score: number
   seconds: number
 }
@@ -56,6 +57,7 @@ export function Transactions() {
               return (
                 <tr key={transaction.id}>
                   <td width="50%">{transaction.name}</td>
+                  <td>{transaction.estado}</td>
                   <td>{transaction.score}</td>
                   <td>{transaction.seconds} segundos</td>
                 </tr>
